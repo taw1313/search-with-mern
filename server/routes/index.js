@@ -7,6 +7,7 @@ router.use("/api", apiRoutes);
 
 // If no API routes are hit, send the React app
 router.use(function(req, res) {
+  console.log( 'DEBUG - client build is being called !!!! ' );
   res.sendFile(path.join(__dirname, "../../client/build/index.html"));
 });
 

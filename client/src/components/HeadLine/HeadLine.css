@@ -1,0 +1,22 @@
+#tableHeader {
+    width: 98%
+}
+
+#tableData {
+    position: relative;
+    height: 600px;
+}
+
+.numField {
+    width: 10%;
+}
+
+.headLineField {
+    cursor: pointer;
+    width: 70%;
+}
+
+.numNotesField {
+    cursor: pointer;
+    width: 10%;
+}
