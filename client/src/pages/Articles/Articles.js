@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { Component } from "react";
 import API from "../../utils/API";
 import HeadLine from "../../components/HeadLine";
@@ -9,16 +10,16 @@ class Articles extends Component {
   state = {
     saveddArticlesCount: 0,
     savedArticles: [],
-    scrapedArticlesCount: 0,
-    scrapedArticles: []
+    searchedArticlesCount: 0,
+    searchedArticles: []
   };
 
   componentDidMount() {
     this.readArticlesFromDB();
   }
 
-  scrapeForNews = () => {
-    API.scrape()
+  searchForNews = () => {
+    API.search()
       .then(res => this.readArticlesFromDB() )
       .catch(err => console.log(err));
   };
@@ -30,14 +31,16 @@ class Articles extends Component {
   readArticlesFromDB = () => {
     API.getArticles()
         .then(results => {
-            let scraped = [];
+            console.log(`DEBUG - results`);
+            console.log(results.createdDate);
+            let searched = [];
             let saved = [];
-            results.data.map( r => r.saveArticle ? saved.push(r) : scraped.push(r) );
+            results.data.map( r => r.saveArticle ? saved.push(r) : searched.push(r) );
             this.setState({ 
                 savedArticlesCount: saved.length, 
                 savedArticles: saved,
-                scrapedArticlesCount: scraped.length, 
-                scrapedArticles: scraped
+                searchedArticlesCount: searched.length, 
+                searchedArticles: searched
             });
         })
   };
@@ -72,9 +75,9 @@ class Articles extends Component {
             <div className='row'>
                 <div className='col-md-6'>
                     <DivHeader
-                        title={`Total Articles scraped: ${this.state.scrapedArticlesCount}`}
-                        btnID={`Scrape`}
-                        action={this.scrapeForNews}
+                        title={`Total Articles found: ${this.state.searchedArticlesCount}`}
+                        btnID={`Search`}
+                        action={this.searchForNews}
                     />
                     <div className='row'>
                         <div className='table-responsive' id='tableHeader'>
@@ -83,6 +86,7 @@ class Articles extends Component {
                                     <tr>
                                         <th className='numField'>#</th>
                                         <th className='headLineField'>Headline</th>
+                                        <th className='dateField'>Date</th>
                                         <th className='actionField'>save</th>
                                     </tr>
                                 </thead>
@@ -91,12 +95,13 @@ class Articles extends Component {
                         <div className='table-responsive' id='tableData'>
                             <table className='table table-hover'>
                                 <tbody id='articlesTable'>
-                                    {this.state.scrapedArticles.map( (article, index) => (
+                                    {this.state.searchedArticles.map( (article, index) => (
                                         <HeadLine
                                             key={article._id}
                                             id={article._id}
                                             index={index+1}
                                             headline={article.headline}
+                                            date={moment(article.createdDate).format("MMM YYYY")}
                                             iconClass={`fas fa-save actionField`}
                                             action={this.saveArticle}
                                         />
@@ -120,6 +125,7 @@ class Articles extends Component {
                                     <tr>
                                         <th className='numField'>#</th>
                                         <th className='headLineField'>Headline</th>
+                                        <th className='dateField'>Date</th>
                                         <th className='actionField'>delete</th>
                                     </tr>
                                 </thead>
@@ -134,6 +140,7 @@ class Articles extends Component {
                                             id={article._id}
                                             index={index+1}
                                             headline={article.headline}
+                                            date={moment(article.createdDate).format("MMM YYYY")}
                                             iconClass={`fas fa-trash-alt actionField`}
                                             action={this.removeArticle}
                                         />

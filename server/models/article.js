@@ -17,7 +17,6 @@ const ArticleSchema = new Schema({
   },
   createdDate: {
     type: Date,
-    default: Date.now,
     required: true
   },
   saveArticle: {
