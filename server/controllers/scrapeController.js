@@ -28,28 +28,17 @@ const dbCreateArticle = ( headline, link, element ) => {
     }
 };
 
-const dbCreateNote = ( articleID, note ) => {
-    db.Note
-        .create(note)
-        .then( (dbNote) => {
-            return db.Article.findOneAndUpdate( 
-              {_id: articleID}, 
-              {$push: {notes: dbNote._id} }, 
-              {new: true} );
-        })
-        .then( (dbArticle) => {
-            // console.log(dbArticle);
-        })
-        .catch( (err) => {
-            // TODO: look at error handling
-            console.log(err.message);
-        })
+const removeNoneSaved = (res) => {
+    db.Article
+      .find({saveArticle: false})
+      .then(dbArticles => dbArticles.map( a => a.remove() ))
+      .catch(err => console.log(err));
 };
 
 module.exports = {
     scrape: (req, res) => {
         console.log( 'DEBUG - controllers - scrapeController - scrape()');
-
+        removeNoneSaved();
         axios.get('https://www.washingtonpost.com').then( (response) => {
             let $ = cheerio.load(response.data);
             //
