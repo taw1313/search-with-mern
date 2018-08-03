@@ -28,12 +28,22 @@ const removeNoneSaved = (res) => {
 module.exports = {
     search: (req, res) => {
         console.log( 'DEBUG - controllers - searchController - search()');
+
         removeNoneSaved();
 
         let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
-        let queryParams = `api-key=b9f91d369ff59547cd47b931d8cbc56b:0:74623931&q=Clinton&begin_date=19700101&end_date=20100101`;
+        let queryKey = "api-key=b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
+        let queryTerm = req.body.searchTerm;
+        let queryStart = req.body.startYear;
+        let queryEnd = req.body.endYear;
 
-        axios.get(queryURL + queryParams).then( (response) => {
+        queryURL += queryKey + `&q=${queryTerm}` +
+                   (queryStart != "" ? `&begin_date=${queryStart}0101` : "") +
+                   (queryEnd != "" ? `&end=${queryEnd}0101` : "");
+        
+        console.log( queryURL );
+
+        axios.get(queryURL).then( (response) => {
             let articleResults = response.data.response.docs;
             console.log(`Found: ${articleResults.length}`);
             articleResults.map( (article) => {

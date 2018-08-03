@@ -23,11 +23,7 @@ const ArticleSchema = new Schema({
       type: Boolean,
       default: false,
       required: true
-  },
-  notes: [{
-    type: Schema.Types.ObjectId,
-    ref: 'note'
-  }]
+  }
 });
 
 const Article = mongoose.model('article', ArticleSchema);

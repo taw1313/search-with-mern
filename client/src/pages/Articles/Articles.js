@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import HeadLine from "../../components/HeadLine";
 import DivHeader from "../../components/DivHeader";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../../components/HeadLine/HeadLine.css";
 
 class Articles extends Component {
@@ -17,12 +17,6 @@ class Articles extends Component {
   componentDidMount() {
     this.readArticlesFromDB();
   }
-
-  searchForNews = () => {
-    API.search()
-      .then(res => this.readArticlesFromDB() )
-      .catch(err => console.log(err));
-  };
 
   removeAllSaved = () => {
       // TODO
@@ -74,11 +68,12 @@ class Articles extends Component {
         <div className='container'>
             <div className='row'>
                 <div className='col-md-6'>
-                    <DivHeader
-                        title={`Total Articles found: ${this.state.searchedArticlesCount}`}
-                        btnID={`Search`}
-                        action={this.searchForNews}
-                    />
+                    <div className='col-md-12 row' id='header'>
+                        <h3 id='totalCnt'> Total Articles found: {this.state.searchedArticlesCount} </h3>
+                        <Link to={"/"}>
+                            <button type='button' className='btn btn-primary' id='Search'> Search </button>
+                        </Link>
+                    </div>
                     <div className='row'>
                         <div className='table-responsive' id='tableHeader'>
                             <table className='table table-hover'>
