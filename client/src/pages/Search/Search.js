@@ -28,42 +28,44 @@ class Search extends Component {
       <div className='container'>
         <div className='row'>
             <div className='col-md-12 row' id='header'>
-                <h3> New Your Times Search </h3>
+                <h3> New York Times Search </h3>
             </div>
         </div>
         <div className='row'>
             <div className='Jumbotron'>
-              <h1>Search Parameters</h1>
+              <h3>Search Parameters</h3>
             </div>
-            <form>
-              <Input
-                value={this.state.searchTerm}
-                onChange={this.handleInputChange}
-                name="searchTerm"
-                placeholder="Search Term (required)"
-              />
-              <Input
-                value={this.state.startYear}
-                onChange={this.handleInputChange}
-                name="startYear"
-                placeholder="Start Year (optional)"
-              />
-              <Input
-                value={this.state.endYear}
-                onChange={this.handleInputChange}
-                name="endYear"
-                placeholder="End Year (Optional)"
-              />
-              <FormBtn
-                disabled={!this.state.searchTerm}
-                onClick={this.searchForNews}
-              >
-                <Link to={"/articles"}>
-                    Search 
-                </Link>
-              </FormBtn>
-            </form>
         </div>
+            <div className='col-md-8 row'>
+                <form>
+                  <Input
+                    value={this.state.searchTerm}
+                    onChange={this.handleInputChange}
+                    name="searchTerm"
+                    placeholder="Search Term (required)"
+                  />
+                  <Input
+                    value={this.state.startYear}
+                    onChange={this.handleInputChange}
+                    name="startYear"
+                    placeholder="Start Year (optional)"
+                  />
+                  <Input
+                    value={this.state.endYear}
+                    onChange={this.handleInputChange}
+                    name="endYear"
+                    placeholder="End Year (Optional)"
+                  />
+                  <FormBtn
+                    disabled={!this.state.searchTerm}
+                    onClick={this.searchForNews}
+                  >
+                    <Link to={"/articles"}>
+                        Search 
+                    </Link>
+                  </FormBtn>
+                </form>
+            </div>
       </div>
     );
   }
