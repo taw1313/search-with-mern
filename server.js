@@ -1,4 +1,4 @@
-//require('dotenv').config();
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB 
+console.log( process.env.MONGODB_URI );
 mongoose
     .connect(process.env.MONGODB_URI || "mongodb://localhost/postscrape")
     .catch( (err) => {
