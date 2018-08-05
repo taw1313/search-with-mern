@@ -1,0 +1,6 @@
+.navbar {
+    height: 150px;
+    background-image: url('./heading.png');
+    background-repeat: no-repeat;
+    background-position: 50% 10%;
+}

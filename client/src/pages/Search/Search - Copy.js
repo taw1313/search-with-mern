@@ -31,44 +31,41 @@ class Search extends Component {
                 <h3> New York Times Search </h3>
             </div>
         </div>
-        <div className='row col-md-12 card'>
-            <div className='card-header'>
-              <strong> <i className="fa fa-list-alt"></i> Search Parameters</strong>
+        <div className='row'>
+            <div className='Jumbotron'>
+              <h3>Search Parameters</h3>
             </div>
-            <div className='card-body'>
+        </div>
+            <div className='col-md-8 row'>
                 <form>
                   <Input
                     value={this.state.searchTerm}
                     onChange={this.handleInputChange}
                     name="searchTerm"
-                    label="Search Term"
-                    placeholder="(required)"
+                    placeholder="Search Term (required)"
                   />
                   <Input
                     value={this.state.startYear}
                     onChange={this.handleInputChange}
                     name="startYear"
-                    label="Start Year"
-                    placeholder="(optional)"
+                    placeholder="Start Year (optional)"
                   />
                   <Input
                     value={this.state.endYear}
                     onChange={this.handleInputChange}
                     name="endYear"
-                    label="End Year"
-                    placeholder="(optional)"
+                    placeholder="End Year (Optional)"
                   />
                   <FormBtn
                     disabled={!this.state.searchTerm}
                     onClick={this.searchForNews}
                   >
                     <Link to={"/articles"}>
-                        <i style={{ color: "white"}}> Search </i>
+                        Search 
                     </Link>
                   </FormBtn>
                 </form>
             </div>
-        </div>
       </div>
     );
   }
