@@ -1,5 +1,5 @@
 {
-  "name": "scrape-with-mern",
+  "name": "search-with-mern",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001",
